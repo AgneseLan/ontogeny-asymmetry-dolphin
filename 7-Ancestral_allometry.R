@@ -516,3 +516,8 @@ allometry_anc_all_postnatal_ggplot
 #remotes::install_github("Pakillo/grateful")
 library(grateful)
 cite_packages(style = "pnas", out.format = "docx")
+
+#Session info
+sink("sessionInfo.txt")
+sessionInfo()
+sink()
