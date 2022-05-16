@@ -1,7 +1,8 @@
 # The ontogeny of asymmetry in echolocating whales :dolphin: 🔊 🐟
 Morphometric analyses of variation in skull shape and asymmetry level in the ontogeny of echolocating whales (Odontoceti, Cetacea) 
 
-Authors: [Agnese Lanzetti](mailto:agnese.lanzetti@gmail.com?subject=[GitHub]%20Ontogeny%20Asymmetry%20Paper%20Code), - Anjali Goswami
+Authors: [Agnese Lanzetti](mailto:agnese.lanzetti@gmail.com?subject=[GitHub]%20Ontogeny%20Asymmetry%20Paper%20Code), Ellen J. Coombs, Roberto Portela Miguez,
+Vincent Fernandez, Anjali Goswami
 
 To cite the paper: 
 
