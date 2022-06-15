@@ -1011,5 +1011,7 @@ allometry_genus_coeffs <- allometry_genus_coeffs[order(allometry_genus_coeffs$st
 allometry_genus_coeffs_prenatal <- allometry_genus_coeffs %>% filter(stage == "prenatal")
 allometry_genus_coeffs_postnatal <- allometry_genus_coeffs %>% filter(stage == "postnatal")
 
+
+
 ###### 
 #Next - ch. 5 - Trajectory analysis
