@@ -985,8 +985,8 @@ allometry_genus_regline <- lm(RegScores ~ logCS * stage_genus, data = allometry_
 allometry_genus_regline_coeffs <- as.matrix(allometry_genus_regline$coefficients)
 
 #Save intercepts and slopes separately
-allometry_genus_regline_intercepts <- as.matrix(allometry_genus_regline_coeffs[c(1, 3:(length(stage_genus_list)+1)),])
-allometry_genus_regline_slopes <- as.matrix(allometry_genus_regline_coeffs[c(2, length(stage_genus_list)+2:(length(stage_genus_list))),])
+allometry_genus_regline_intercepts <- as.matrix(allometry_genus_regline_coeffs[c(1, 3:(length(stage_genus_vars)+1)),])
+allometry_genus_regline_slopes <- as.matrix(allometry_genus_regline_coeffs[c(2, length(stage_genus_vars)+2:(length(stage_genus_vars))),])
 
 #Calculate real intercepts and slopes - add to first line as following lines are difference from reference
 allometry_genus_regline_intercepts_ok <- as.matrix(c(allometry_genus_regline_intercepts[1,], allometry_genus_regline_intercepts[1,]+
