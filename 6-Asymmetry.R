@@ -1643,13 +1643,33 @@ distance_diff_DA_table$category <- factor(distance_diff_DA_table$category,
 #Order
 distance_diff_DA_table <- distance_diff_DA_table[order(distance_diff_DA_table$category),]
 
+#Add confidence intervals for each point
+#Means for each specimen per genus and growth stage
+distance_symm_DA_R_1_spec_mean <- apply(distance_symm_DA_R[,,rows_categories[[1]]], 2, mean)
+distance_symm_DA_R_2_spec_mean <- apply(distance_symm_DA_R[,,rows_categories[[2]]], 2, mean)
+distance_symm_DA_R_3_spec_mean <- apply(distance_symm_DA_R[,,rows_categories[[3]]], 2, mean)
+distance_symm_DA_R_4_spec_mean <- apply(distance_symm_DA_R[,,rows_categories[[4]]], 2, mean)
+
+distance_diff_DA_R_means_specs <- as.vector(c(distance_symm_DA_R_1_spec_mean, distance_symm_DA_R_2_spec_mean,
+                                              distance_symm_DA_R_3_spec_mean, distance_symm_DA_R_4_spec_mean))
+
+#Create dataframe for error bars
+distance_diff_DA_R_error <-  data.frame(means = distance_diff_DA_R_means_specs,
+                                        genus = genera, family = families, category = categories)
+
+distance_diff_DA_R_error <- distance_diff_DA_R_error %>% group_by(genus,category) %>%
+  mutate(lower = min(means), upper = max(means))
+
 #Plot with lines connecting different stages per genus
 distance_diff_DA_plot <- 
   ggplot(distance_diff_DA_table, aes(x = category, y = means, color = genus, shape = category, group = genus)) + 
+  geom_point(data = distance_diff_DA_R_error, aes(x = category, y = means, color = genus, group = genus), 
+             inherit.aes = F, show.legend = F, size = 1.5)+
   geom_line(aes(linetype = family), size = 1) + 
   geom_point(size = 3, fill = "white", stroke = 1.5)+
   scale_shape_manual(values = shapes_cat)+
   scale_colour_manual(values = mypalette_taxa)+ #to be grouped as they appear in tibble    
+  scale_linetype_manual(values = c(1, 2, 4))+
   theme_classic(base_size = 12)+
   ylab("Mean distances")+
   xlab("Growth stage")+
@@ -1660,7 +1680,7 @@ distance_diff_DA_plot <-
         legend.title = element_text(size = 11), legend.position = "bottom", legend.direction = "horizontal")+
   guides(shape = guide_legend(label = F, title = NULL, override.aes = list(shape = NA, linetype = 0, fill = NA, colour = NA)),
          colour = guide_legend(label = F, title = NULL, override.aes = list(shape = NA, linetype = 0, fill = NA)), 
-         linetype = guide_legend(override.aes = list(color = "black", size = 0.8)))+
+         linetype = guide_legend(keywidth = unit(3, "char"), override.aes = list(color = "black", size = 0.8)))+
   annotate("text", x = 1, y = 0.005, label = "add phylopics")
 distance_diff_DA_plot 
 
@@ -1671,7 +1691,7 @@ distance_diff_DA_plot  <-
   annotate("text", x = 2.6, y = 0.0038, label = "**", family = "", fontface = 4, size = 7, colour = mypalette_taxa[2])+
   annotate("text", x = 3.2, y = 0.003, label = "**", family = "", fontface = 4, size = 7, colour = mypalette_taxa[3])+
   annotate("text", x = 1.5, y = 0.0021, label = "*", family = "", fontface = 4, size = 7, colour = mypalette_taxa[4])+
-  annotate("text", x = 1.5, y = 0.0018, label = "**", family = "", fontface = 4, size = 7, colour = "black")
+  annotate("text", x = 1.5, y = 0.0015, label = "**", family = "", fontface = 4, size = 7, colour = "black")
 distance_diff_DA_plot 
 
 ####Heatmaps plots for significant differences in distances means ----
@@ -2722,14 +2742,33 @@ distance_diff_DA_R_int_table$category <- factor(distance_diff_DA_R_int_table$cat
                                               levels = c("1-early", "2-late/new", "3-immature", "4-adult")) #copy from string printed with the code above
 #Order
 distance_diff_DA_R_int_table <- distance_diff_DA_R_int_table[order(distance_diff_DA_R_int_table$category),]
+#Add confidence intervals for each point
+#Means for each specimen per genus and growth stage
+distance_symm_DA_R_int_1_spec_mean <- apply(distance_symm_DA_R_int[,,rows_categories[[1]]], 2, mean)
+distance_symm_DA_R_int_2_spec_mean <- apply(distance_symm_DA_R_int[,,rows_categories[[2]]], 2, mean)
+distance_symm_DA_R_int_3_spec_mean <- apply(distance_symm_DA_R_int[,,rows_categories[[3]]], 2, mean)
+distance_symm_DA_R_int_4_spec_mean <- apply(distance_symm_DA_R_int[,,rows_categories[[4]]], 2, mean)
+
+distance_diff_DA_R_int_means_specs <- as.vector(c(distance_symm_DA_R_int_1_spec_mean, distance_symm_DA_R_int_2_spec_mean,
+                                                  distance_symm_DA_R_int_3_spec_mean, distance_symm_DA_R_int_4_spec_mean))
+
+#Create dataframe for error bars
+distance_diff_DA_R_int_error <-  data.frame(means = distance_diff_DA_R_int_means_specs,
+                                            genus = genera, family = families, category = categories)
+
+distance_diff_DA_R_int_error <- distance_diff_DA_R_int_error %>% group_by(genus,category) %>%
+  mutate(lower = min(means), upper = max(means))
 
 #Plot with lines connecting different stages per genus
 distance_diff_DA_R_int_plot <- 
   ggplot(distance_diff_DA_R_int_table, aes(x = category, y = means, color = genus, shape = category, group = genus)) + 
+  geom_point(data = distance_diff_DA_R_int_error, aes(x = category, y = means, color = genus, group = genus), 
+             inherit.aes = F, show.legend = F, size = 1.5)+
   geom_line(aes(linetype = family), size = 1) + 
   geom_point(size = 3, fill = "white", stroke = 1.5)+
   scale_shape_manual(values = shapes_cat)+
   scale_colour_manual(values = mypalette_taxa)+ #to be grouped as they appear in tibble    
+  scale_linetype_manual(values = c(1, 2, 4))+
   theme_classic(base_size = 12)+
   ylab("Mean distances")+
   xlab("Growth stage")+
@@ -2740,7 +2779,7 @@ distance_diff_DA_R_int_plot <-
         legend.title = element_text(size = 11), legend.position = "bottom", legend.direction = "horizontal")+
   guides(shape = guide_legend(label = F, title = NULL, override.aes = list(shape = NA, linetype = 0, fill = NA, colour = NA)),
          colour = guide_legend(label = F, title = NULL, override.aes = list(shape = NA, linetype = 0, fill = NA)), 
-         linetype = guide_legend(override.aes = list(color = "black", size = 0.8)))+
+         linetype = guide_legend(keywidth = unit(3, "char"), override.aes = list(color = "black", size = 0.8)))+
   annotate("text", x = 1, y = 0.004, label = "add phylopics")
 distance_diff_DA_R_int_plot 
 
@@ -2751,7 +2790,7 @@ distance_diff_DA_R_int_plot  <-
   annotate("text", x = 2.5, y = 0.0036, label = "**", family = "", fontface = 4, size = 7, colour = mypalette_taxa[2])+
   annotate("text", x = 3.25, y = 0.0028, label = "**", family = "", fontface = 4, size = 7, colour = mypalette_taxa[3])+
   annotate("text", x = 1.5, y = 0.0021, label = "*", family = "", fontface = 4, size = 7, colour = mypalette_taxa[4])+
-  annotate("text", x = 1.5, y = 0.0018, label = "**", family = "", fontface = 4, size = 7, colour = "black")
+  annotate("text", x = 1.5, y = 0.0015, label = "**", family = "", fontface = 4, size = 7, colour = "black")
 distance_diff_DA_R_int_plot 
 
 ####Heatmaps plots for significant differences in distances means ----

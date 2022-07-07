@@ -283,7 +283,7 @@ glimpse(hulls_res_genus)
 
 #Nice PCA plot with hulls around gdf$genus ("Delphinapterus", "Globicephala", "Lagenorhynchus", "Phocoena", "Stenella")
 PCA_res_genus_ggplot <- ggplot(pcscores_res, aes(x = Comp1, y = Comp2, fill = genus))+
-  geom_polygon(data = hulls_res_genus, aes(x = x, y = y, colour = genus, fill = genus,  linetype = group), alpha = .005, show.legend = FALSE)+ #colored hulls with transparency
+  geom_polygon(data = hulls_res_genus, aes(x = x, y = y, colour = genus, fill = genus,  linetype = group), alpha = .005, size = 1, show.legend = FALSE)+ #colored hulls with transparency
   geom_point(size = 4, aes(shape = category, alpha = category), colour = "grey10")+
   scale_colour_manual(name = "Genus", labels = c("Delphinapterus", "Globicephala", "Lagenorhynchus", "Phocoena", "Stenella"), #copy from as.factor(groups)
                       values = mypalette_taxa, aesthetics = c("colour","fill"))+ #to be ordered as they appear in tibble
@@ -291,15 +291,16 @@ PCA_res_genus_ggplot <- ggplot(pcscores_res, aes(x = Comp1, y = Comp2, fill = ge
                      values = c(0.3, 0.5, 0.7, 1))+            #legend and color adjustments
   scale_shape_manual(name = "Growth stage", labels =  c("Early Fetus", "Late Fetus/Neonate", "Juvenile", "Adult"), 
                      values = shapes_cat)+
+  scale_linetype_manual(values = c(1,2,4))+
   theme_bw()+
   xlab("PC 1 (43.1%)")+ #copy this from standard PCA plot (PCA_res_plot)
   ylab("PC 2 (12.89%)")+
   ggtitle("PCA residuals")+
   theme(plot.title = element_text(face = "bold", hjust = 0.5), legend.text = element_text(size = 11), legend.background = element_blank(),
-        legend.key = element_blank(), legend.title = element_text(size = 12, face = "bold"), legend.position = c(0.65,0.6), 
+        legend.key = element_blank(), legend.title = element_text(size = 12, face = "bold"), legend.position = c(0.05,0.7), 
         legend.direction = "vertical", legend.justification = c(0,0))+
-  guides(colour = guide_legend(label = F, title = NULL, override.aes = list(shape = NA, fill = NA, alpha = NA)), 
-         fill = guide_legend(label = F, title = NULL), shape = guide_legend(override.aes = list(fill = "grey10", colour = "grey10")))
+  guides(colour = "none", fill = "none", 
+         shape = guide_legend(override.aes = list(fill = "grey10", colour = "grey10")))
 
 #Visualize plot and save as PDF using menu in bar on the right
 PCA_res_genus_ggplot
@@ -307,11 +308,11 @@ PCA_res_genus_ggplot
 #Add phylopics for genera
 PCA_res_genus_ggplot <- 
   PCA_res_genus_ggplot +
-  add_phylopic(Delph, alpha = 1, x =  -0.155, y = 0.01, ysize = 0.035, color = mypalette_taxa[1])+
-  add_phylopic(Globi, alpha = 1, x = -0.11, y = -0.065, ysize = 0.025, color = mypalette_taxa[2])+
-  add_phylopic(Lage, alpha = 1, x = -0.02, y = -0.06, ysize = 0.05, color = mypalette_taxa[3])+
-  add_phylopic(Phoc, alpha = 1, x = -0.06, y = 0.07, ysize = 0.025, color = mypalette_taxa[4])+
-  add_phylopic(Sten, alpha = 1, x = 0.15, y = 0, ysize = 0.02, color = mypalette_taxa[5])
+  add_phylopic(Delph, alpha = 1, x =  -0.155, y = 0.01, ysize = 0.015, color = mypalette_taxa[1])+
+  add_phylopic(Globi, alpha = 1, x = -0.11, y = -0.065, ysize = 0.01, color = mypalette_taxa[2])+
+  add_phylopic(Lage, alpha = 1, x = -0.02, y = -0.06, ysize = 0.025, color = mypalette_taxa[3])+
+  add_phylopic(Phoc, alpha = 1, x = -0.06, y = 0.07, ysize = 0.01, color = mypalette_taxa[4])+
+  add_phylopic(Sten, alpha = 1, x = 0.15, y = 0, ysize = 0.01, color = mypalette_taxa[5])
 PCA_res_genus_ggplot
 
 ###Regression PC1 and PC2 ----
