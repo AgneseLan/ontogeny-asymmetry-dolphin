@@ -1658,13 +1658,13 @@ distance_diff_DA_R_error <-  data.frame(means = distance_diff_DA_R_means_specs,
                                         genus = genera, family = families, category = categories)
 
 distance_diff_DA_R_error <- distance_diff_DA_R_error %>% group_by(genus,category) %>%
-  mutate(lower = min(means), upper = max(means))
+  mutate(lower = min(means), upper = max(means), mean = mean(means))
 
 #Plot with lines connecting different stages per genus
 distance_diff_DA_plot <- 
   ggplot(distance_diff_DA_table, aes(x = category, y = means, color = genus, shape = category, group = genus)) + 
-  geom_point(data = distance_diff_DA_R_error, aes(x = category, y = means, color = genus, group = genus), 
-             inherit.aes = F, show.legend = F, size = 1.5)+
+  geom_errorbar(data = distance_diff_DA_R_error, aes(x = category, y = mean, ymin = lower, ymax = upper, 
+                                                     color = genus, group = genus), width = 0.05,inherit.aes = F, show.legend = F, size = 0.5)+
   geom_line(aes(linetype = family), size = 1) + 
   geom_point(size = 3, fill = "white", stroke = 1.5)+
   scale_shape_manual(values = shapes_cat)+
@@ -1676,7 +1676,7 @@ distance_diff_DA_plot <-
   ggtitle ("Mean distances DA and symmetric component")+ 
   scale_x_discrete(labels = c("Early Fetus", "Late Fetus/Neonate", "Juvenile", "Adult"))+
   theme(plot.title = element_text(face = "bold", hjust = 0.5, size = 12), axis.title.y = element_text(vjust = 2), axis.title.x = element_text(vjust = -1),
-        legend.text = element_text(size = 10), 
+        legend.text = element_text(size = 10), legend.background = element_blank(),
         legend.title = element_text(size = 11), legend.position = "bottom", legend.direction = "horizontal")+
   guides(shape = guide_legend(label = F, title = NULL, override.aes = list(shape = NA, linetype = 0, fill = NA, colour = NA)),
          colour = guide_legend(label = F, title = NULL, override.aes = list(shape = NA, linetype = 0, fill = NA)), 
@@ -2757,13 +2757,13 @@ distance_diff_DA_R_int_error <-  data.frame(means = distance_diff_DA_R_int_means
                                             genus = genera, family = families, category = categories)
 
 distance_diff_DA_R_int_error <- distance_diff_DA_R_int_error %>% group_by(genus,category) %>%
-  mutate(lower = min(means), upper = max(means))
+  mutate(lower = min(means), upper = max(means), mean = mean(means))
 
 #Plot with lines connecting different stages per genus
 distance_diff_DA_R_int_plot <- 
   ggplot(distance_diff_DA_R_int_table, aes(x = category, y = means, color = genus, shape = category, group = genus)) + 
-  geom_point(data = distance_diff_DA_R_int_error, aes(x = category, y = means, color = genus, group = genus), 
-             inherit.aes = F, show.legend = F, size = 1.5)+
+  geom_errorbar(data = distance_diff_DA_R_int_error, aes(x = category, y = mean, ymin = lower, ymax = upper, 
+                                                         color = genus, group = genus), width = 0.05,inherit.aes = F, show.legend = F, size = 0.5)+
   geom_line(aes(linetype = family), size = 1) + 
   geom_point(size = 3, fill = "white", stroke = 1.5)+
   scale_shape_manual(values = shapes_cat)+
@@ -2775,7 +2775,7 @@ distance_diff_DA_R_int_plot <-
   ggtitle ("Mean distances DA and symmetric component - no interparietal")+ 
   scale_x_discrete(labels = c("Early Fetus", "Late Fetus/Neonate", "Juvenile", "Adult"))+
   theme(plot.title = element_text(face = "bold", hjust = 0.5, size = 12), axis.title.y = element_text(vjust = 2), axis.title.x = element_text(vjust = -1),
-        legend.text = element_text(size = 10), 
+        legend.text = element_text(size = 10),  legend.background = element_blank(),
         legend.title = element_text(size = 11), legend.position = "bottom", legend.direction = "horizontal")+
   guides(shape = guide_legend(label = F, title = NULL, override.aes = list(shape = NA, linetype = 0, fill = NA, colour = NA)),
          colour = guide_legend(label = F, title = NULL, override.aes = list(shape = NA, linetype = 0, fill = NA)), 
