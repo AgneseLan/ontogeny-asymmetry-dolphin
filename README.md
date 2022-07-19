@@ -5,7 +5,10 @@ Authors: [Agnese Lanzetti](mailto:agnese.lanzetti@gmail.com?subject=[GitHub]%20O
 Vincent Fernandez, Anjali Goswami
 
 To cite the paper: 
-
+Lanzetti A, Coombs EJ, Miguez RP, Fernandez V, Goswami A. 2022 The
+ontogeny of asymmetry in echolocating
+whales. Proc. R. Soc. B 20221090. 
+https://doi.org/10.1098/rspb.2022.1090
 
 Available at: https://github.com/AgneseLan/ontogeny-asymmetry-dolphin
 
@@ -13,7 +16,7 @@ If using any of this code or data please cite the paper above and this repo
 
 To cite this repo:
 
-DOI ZENODO
+<a href="https://zenodo.org/badge/latestdoi/451504009"><img src="https://zenodo.org/badge/451504009.svg" alt="DOI"></a>
 
 ## Data :floppy_disk: 
 
